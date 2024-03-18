@@ -8,6 +8,9 @@
                         <i class="fa fa-home"></i>
                     </x-slot>
                 </x-aside-link>
+                @can('admin')
+                    @include('admin.partials.asides.admin')
+                @endcan
 
 
             </div>

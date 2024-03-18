@@ -9,5 +9,5 @@
 </x-base.table>
 
 @once
-    @include('partials.datatables')
+    @include('admin.partials.datatables')
 @endonce

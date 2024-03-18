@@ -1,10 +1,10 @@
-<x-aside-dropdown title="Leave Application" key="leave-application">
+<x-aside-dropdown title="Category Management" key="leave-application">
     <x-slot name="icon">
         <i class="fa fa-book"></i>
     </x-slot>
-    <x-aside-link :href="route('leave.apply.create')" title="My Leave Application">
+    <x-aside-link :href="route('category.index')" title="Product Category">
         <x-slot name="icon">
-            <i class="fa fa-edit"></i>
+            <i class="fa fa-shop"></i>
         </x-slot>
     </x-aside-link>
 </x-aside-dropdown>

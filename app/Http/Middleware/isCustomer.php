@@ -20,7 +20,7 @@ class isCustomer
         $user = Auth::user();
         throw_if(!$user || ($user && !in_array($user->authority, ['admin', 'customer'])), 'Un Authorised user');
         if ($user->authority == 'customer') {
-            return redirect('/home');
+            return $next($request);
         }
         if ($user->authority == 'admin') {
             return redirect()->route('admin.dashboard')->with('error', 'Admins Not authorized');
