@@ -4,7 +4,7 @@
             <a class="btn  btn-primary" href="{{ route('category.create') }}">Create</a>
         </x-slot>
 
-        <x-base.datatable>
+        <x-base.table>
             <x-slot name="thead">
                 <th>Title</th>
                 <th>Description</th>
@@ -44,6 +44,9 @@
                 </tr>
                 @endforeach
             </x-slot>
-        </x-base.datatable>
+        </x-base.table>
+        <div>
+            {{-- {{ $categories->links() }} --}}
+        </div>
     </x-base.card>
 </div>

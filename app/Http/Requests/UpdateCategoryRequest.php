@@ -26,7 +26,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             "status"=> "required|string|in:active,suspended",
-            "title"=> "required|string|unique:categories,title,except,".$this->id,
+            "title"=> "required|string|unique:categories,title,".$this->category->id,
             "description"=> "required|string",
             "image"=> "nullable|image|mimes:png,jpg|max:1024",
             "slug"=> "sometimes|string"

@@ -3,12 +3,13 @@
 @section('content')
 @php
     $route = $category ? route("category.update", $category->id) : route("category.store");
+    $action = $category ? 'Update': 'Create';
 @endphp
 <div class="row">
     <div class="col-12">
-        <x-base.card title="Create Category">
+        <x-base.card title="{{ $action }} Category">
             <x-base.form :action="$route" autocomplete="on" enctype="multipart/form-data">
-                @method($category? 'PATCH': 'post')
+                @method($category? 'PUT': 'post')
                 <div class="form-row">
                     <x-base.form-group label="Title" class="col-md-6">
                         <x-base.input  :value="old('title')?? optional($category)->title" id="title"
@@ -39,7 +40,7 @@
                 </div>
                 <x-base.form-group class="text-center">
                     <x-base.button class="btn-primary">
-                        Submit
+                        {{ $action }}
                     </x-base.button>
                 </x-base.form-group>
             </x-base.form>
