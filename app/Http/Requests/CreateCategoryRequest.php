@@ -25,11 +25,11 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            "status"=> "required|string|in:active,suspended",
-            "title"=> "required|string",
-            "description"=> "required|string",
-            "image"=> "nullable|image|mimes:png,jpg|max:1024",
-            "slug"=> "sometimes|string"
+            "status" => "required|string|in:active,suspended",
+            "title" => "required|string",
+            "description" => "required|string",
+            "image" => "nullable|image|mimes:png,jpg|max:1024",
+            "slug" => "sometimes|string"
         ];
     }
 }

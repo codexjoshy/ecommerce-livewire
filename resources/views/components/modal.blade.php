@@ -1,22 +1,30 @@
-@props(['title' => '', 'key', 'openOnFieldError' => ''])
+@props(['title' => '', 'key', 'openOnFieldError' => '', 'livewireClose'=>null])
 
 <!-- Modal -->
-<div class="modal fade" id="{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="{{ $key }}Label" aria-hidden="true" {{ $attributes }}>
+<div class="modal fade" id="{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="{{ $key }}Label" aria-hidden="true"
+    {{ $attributes }}>
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="{{ $key }}Label">{{ $title }}</h5>
-                <button class="close" type="button" data-dismiss="modal"  aria-label="Close">
+                @if (!$livewireClose)
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
+                @else
+                <button wire:click="{{$livewireClose }}" class="close" type="button" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @endif
             </div>
             <div class="modal-body">
                 {{ $slot }}
             </div>
             @if (isset($footer))
-                <div class="modal-footer">
-                    {{ $footer }}
-                </div>
+            <div class="modal-footer">
+                {{ $footer }}
+            </div>
             @endif
         </div>
     </div>
@@ -24,11 +32,11 @@
 
 
 @if ($openOnFieldError)
-    @push('scripts')
-        <script>
-            @error($openOnFieldError)
+@push('scripts')
+<script>
+    @error($openOnFieldError)
                 $('#{{ $key }}').modal('show');
             @enderror
-        </script>
-    @endpush
+</script>
+@endpush
 @endif

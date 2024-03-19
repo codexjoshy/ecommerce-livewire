@@ -23,7 +23,7 @@
                 }
             }
         </style>
-
+        @livewireStyles
         @stack('css')
     </head>
 
@@ -111,6 +111,7 @@
         }
         </script>
         @stack('scripts')
+        @livewireScripts
     </body>
 
 </html>
