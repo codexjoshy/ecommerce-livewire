@@ -27,10 +27,15 @@ Auth::routes();
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('category', CategoryController::class);
+    // Route::get('category/{category}/product/{product}',[ CategoryController::class, 'show'])->name('admin.category.product.show')
+    // users routes
     Route::get('user/create', [UserController::class, 'create'])->name('admin.user.create');
     Route::get('/user', App\Http\Livewire\Admin\User\Index::class)->name('admin.user.index');
     // Route::get('user/create', App\Http\Livewire\Admin\User\Create::class)->name('admin.user.create');
-    // Route::put('/user/{user}', App\Http\Livewire\Admin\User\Index::class)->name('admin.user.update');
+
+    // product route
+    Route::get('/products', App\Http\Livewire\Admin\Product\Index::class)->name('admin.product.index');
+    Route::get('/products/create', App\Http\Livewire\Admin\Product\Create::class)->name('admin.product.create');
 });
 
 Route::prefix('/')->middleware(['auth', 'isCustomer'])->group(function () {

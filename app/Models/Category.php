@@ -12,11 +12,17 @@ class Category extends Model
 
     public function getCategoryStatusAttribute()
     {
-        return $this->status == '1' ? 'active': 'suspended';
+        return $this->status == '1' ? 'active' : 'suspended';
     }
     public function getImageUrlAttribute()
     {
         $base = asset("uploads/category/");
-        return $base."/{$this->image}";
+        return $base . "/{$this->image}";
+    }
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

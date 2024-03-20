@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withCount('products')->get();
         return view("admin.category.index", compact("categories"));
     }
 
@@ -42,14 +42,14 @@ class CategoryController extends Controller
     {
         try {
             $validated = $request->validated();
-            ["status"=> $status] = $validated;
+            ["status" => $status] = $validated;
 
             if ($request->file('image')) {
                 $file = $request->file('image');
-                $validated['image'] = time(). ".{$file->getClientOriginalExtension()}";
-                $file->move("uploads/category", $validated['image'] );
+                $validated['image'] = time() . ".{$file->getClientOriginalExtension()}";
+                $file->move("uploads/category", $validated['image']);
             }
-            $validated['status'] = $status == "active" ? '1': '0';
+            $validated['status'] = $status == "active" ? '1' : '0';
             Category::create($validated);
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -66,7 +66,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //r
+        $categoryProducts = $category->load('products');
+        return view('admin.category.show', compact('category', 'categoryProducts'));
     }
 
     /**
@@ -95,8 +96,8 @@ class CategoryController extends Controller
         $category->description = $validated['description'];
         if ($request->file('image')) {
             $file = $request->file('image');
-            $validated['image'] = time(). ".{$file->getClientOriginalExtension()}";
-            $file->move("uploads/category", $validated['image'] );
+            $validated['image'] = time() . ".{$file->getClientOriginalExtension()}";
+            $file->move("uploads/category", $validated['image']);
             $category->image = $validated['image'];
         }
         $category->save();

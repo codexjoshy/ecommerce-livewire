@@ -13,7 +13,7 @@ class Index extends Component
     public function render()
     {
         // $categories = Category::latest()->paginate(10);
-        $categories = Category::latest()->get();
+        $categories = Category::withCount('products')->get();
         return view('livewire.category.index', compact('categories'));
     }
 }
