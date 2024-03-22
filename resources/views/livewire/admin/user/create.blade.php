@@ -12,7 +12,7 @@
     @endif
     <form autocomplete="on" wire:submit.prevent='createUser'>
 
-        @include('components.users.form')
+        @include('components.users.form', ["roles"=>$roles])
 
         <x-base.form-group class=" text-center">
             <x-base.button class="btn-primary">

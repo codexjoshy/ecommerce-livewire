@@ -1,4 +1,4 @@
-@props(['user'=>null, 'title', 'btnTitle'])
+@props(['user'=>null, 'title', 'btnTitle', 'roles'=> []])
 
 <div class="form-row" wire:key="user-modal">
 
@@ -13,9 +13,9 @@
   <x-base.input wire:model.defer='password' id="password" name="password" type="password" />
  </x-base.form-group>
  <x-base.form-group label="Role" class="col-md-3">
-  <x-base.select wire:model.defer='authority' placeholder="---" id="status" name="status">
-   @foreach (['admin', 'customer'] as $status)
-   <option wire:key="status-{{ $status }}" value="{{ $status }}">{{ ucwords($status) }}</option>
+  <x-base.select wire:model.defer='role_id' placeholder="---" id="status" name="role_id">
+   @foreach ( $roles as $role)
+   <option wire:key="status-{{ $role->id }}" value="{{ $role->id }}">{{ ucwords($role->name) }}</option>
    @endforeach
   </x-base.select>
  </x-base.form-group>

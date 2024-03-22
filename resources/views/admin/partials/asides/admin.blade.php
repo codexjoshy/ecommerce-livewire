@@ -2,6 +2,11 @@
     <x-slot name="icon">
         <i class="fa fa-user"></i>
     </x-slot>
+    <x-aside-link wire:navigate :href="route('admin.role.index')" title="View Roles">
+        <x-slot name="icon">
+            <i class="fa fa-shop"></i>
+        </x-slot>
+    </x-aside-link>
     <x-aside-link wire:navigate :href="route('admin.user.create')" title="Add User">
         <x-slot name="icon">
             <i class="fa fa-shop"></i>

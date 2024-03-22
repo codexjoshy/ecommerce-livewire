@@ -2,17 +2,19 @@
 
 namespace App\Http\Livewire\Admin\User;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 
 class Create extends Component
 {
-    public $name, $email, $authority, $password;
+    public $name, $email, $role_id,  $password, $roles;
+
 
     protected function resetInput()
     {
-        $this->reset(['name', 'email', 'authority', 'password']);
+        $this->reset(['name', 'email', 'role_id', 'password']);
     }
 
     public function rules()
@@ -20,7 +22,7 @@ class Create extends Component
         return [
             "name" => "required|string",
             "email" => "required|email|unique:users,email",
-            "authority" => "required|string|in:admin,customer",
+            "role_id" => "required|string|exists:roles,id",
             "password" => "required|min:6"
         ];
     }
@@ -38,6 +40,7 @@ class Create extends Component
     }
     public function render()
     {
-        return view('livewire.admin.user.create');
+        $this->roles =  Role::latest()->get();
+        return view('livewire.admin.user.create', ["roles" => $this->roles]);
     }
 }

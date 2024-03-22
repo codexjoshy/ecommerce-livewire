@@ -2,20 +2,23 @@
 
 namespace App\Http\Livewire\Admin\User;
 
+use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public  $email, $authority, $userId, $name, $password;
-    // protected $listeners = ['updateUser'];
+    public  $email, $role_id, $userId, $name, $password, $roles, $users;
+
+
+
     public function rules()
     {
         return [
             "name" => "required| string",
             "email" => "required| email",
-            "authority" => "required|string|in:admin,customer",
-            "password" => "sometimes|min:6",
+            "role_id" => "required|string|exists:roles,id",
+            "password" => "nullable|string|min:6",
         ];
     }
 
@@ -23,13 +26,13 @@ class Index extends Component
     {
         $this->name = null;
         $this->email = null;
-        $this->authority = null;
+        $this->role_id = null;
         $this->password = null;
     }
 
     public function closeModal()
     {
-        $this->reset(["name", "email", "authority", "password"]);
+        $this->reset(["name", "email", "role_id", "password"]);
     }
 
     public function updateUser()
@@ -76,12 +79,15 @@ class Index extends Component
         $this->userId = $userId;
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->authority = $user->authority;
+        $this->role_id = $user->role_id;
+        $this->roles = Role::latest()->get();
     }
     public function render()
     {
         $users = User::latest()->get();
-        return view('livewire.admin.user.index', compact('users'))
+        $this->users = $users;
+        $this->roles = Role::latest()->get();
+        return view('livewire.admin.user.index',  ['users' => $users, 'roles' => $this->roles])
             ->extends("layouts.admin")
             ->section("content");
     }

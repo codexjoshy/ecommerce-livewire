@@ -4,7 +4,7 @@
             <a class="btn  btn-primary" href="{{ route('category.create') }}">Create</a>
         </x-slot>
 
-        <x-base.table>
+        <x-base.datatable>
             <x-slot name="thead">
                 <th>Title</th>
                 <th>Description</th>
@@ -40,6 +40,13 @@
                             <i class="fa fa-pencil"></i>
                         </a>
 
+                        @if ($category->default)
+                        <button type="button" disabled
+                            class="btn btn-datatable btn-icon btn-transparent-dark btn-danger mr-2"
+                            data-toggle="tooltip" data-placement="bottom" title="Edit" data-original-title="dELETE">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        @else
                         <x-base.form method="post" :action="route('category.destroy', $category->id)">
                             @method('delete')
                             <button type="submit"
@@ -48,12 +55,14 @@
                                 <i class="fa fa-trash"></i>
                             </button>
                         </x-base.form>
+                        @endif
+
 
                     </td>
                 </tr>
                 @endforeach
             </x-slot>
-        </x-base.table>
+        </x-base.datatable>
         <div>
             {{-- {{ $categories->links() }} --}}
         </div>
