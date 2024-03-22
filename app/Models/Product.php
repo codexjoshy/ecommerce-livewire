@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use NumberFormatter;
 
 class Product extends Model
 {
@@ -21,5 +22,11 @@ class Product extends Model
     public function category()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function getFormattedPriceAttribute()
+    {
+        $fmt = new NumberFormatter('en_US', NumberFormatter::DECIMAL);
+        return $fmt->format($this->price);
     }
 }

@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
+Route::get('/products', [FrontendController::class, 'products'])->name('frontend.product.index');
+Route::get('/{category_slug}/{product}', [FrontendController::class, 'product'])->name('frontend.product.show');
 
 
 Auth::routes();

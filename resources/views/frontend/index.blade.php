@@ -1,89 +1,7 @@
 @extends('layouts.frontend')
 
 @section('content')
-<header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
-  <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
-    <div class="container-fluid">
-      <div style="width:60px;height:60px;">
-        <x-logo />
-      </div>
-      <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <svg class="navbar-icon">
-          <use xlink:href="#navbar-icon"></use>
-        </svg>
-      </button>
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
-        <div class="offcanvas-header px-4 pb-0">
-          <x-logo showName />
-          <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"
-            data-bs-target="#bdNavbar"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link me-4 active" href="#billboard">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link me-4" href="#company-services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link me-4" href="#products">Products</a>
-            </li>
 
-            @guest
-            @if (Route::has('login'))
-            <li class="nav-item">
-              <a class="nav-link me-4" href="{{ route('login') }}" wire:navigate>Login</a>
-            </li>
-            @endif
-            @else
-            <li class="nav-item pe-3">
-              <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <span class="fa fa-user"></span>
-                <svg class="user" style='width:20px; height:20px;'>
-                  <use xlink:href="#user"></use>
-                </svg>
-                <strong>{{ Auth::user()->name[0] }}</strong>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                  {{ __('Logout') }}
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
-                </form>
-              </div>
-            </li>
-            @endguest
-            <li class="nav-item">
-              <div class="user-items ps-5">
-                <ul class="d-flex justify-content-end list-unstyled">
-                  <li class="search-item pe-3">
-                    <a href="#" class="search-button">
-                      <svg class="search">
-                        <use xlink:href="#search"></use>
-                      </svg>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="cart.html">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
 <section id="billboard" class="position-relative overflow-hidden bg-light-blue">
   <div class="swiper main-swiper">
     <div class="swiper-wrapper">
@@ -93,7 +11,8 @@
             <div class="col-md-6">
               <div class="banner-content">
                 <h1 class="display-2 text-uppercase text-dark pb-5">Discover Time's Finest Collection!</h1>
-                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                <a href="{{ route('frontend.product.index') }}" style="z-index: 10000;"
+                  class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
               </div>
             </div>
             <div class="col-md-5">
@@ -110,7 +29,8 @@
             <div class="col-md-6">
               <div class="banner-content">
                 <h1 class="display-2 text-uppercase text-dark pb-5">Technology Hack You Won't Get</h1>
-                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                <a href="{{ route('frontend.product.index') }}"
+                  class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
               </div>
             </div>
             <div class="col-md-5">
@@ -352,3 +272,6 @@
 </section>
 
 @endsection
+@push('scripts')
+<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+@endpush
