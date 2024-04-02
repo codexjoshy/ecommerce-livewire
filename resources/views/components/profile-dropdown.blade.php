@@ -19,6 +19,7 @@
             </div>
             Account
         </a>
+
         <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <div class="dropdown-item-icon"><i class="fa fa-sign-out"></i></div>

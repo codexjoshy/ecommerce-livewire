@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function whishLists()
+    {
+        return $this->hasMany(Whishlist::class);
+    }
+
     public static function boot()
     {
         parent::boot();

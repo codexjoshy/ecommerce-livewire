@@ -17,7 +17,7 @@ class Index extends Component
         return [
             "name" => "required| string",
             "email" => "required| email",
-            "role_id" => "required|string|exists:roles,id",
+            "role_id" => "required|exists:roles,id",
             "password" => "nullable|string|min:6",
         ];
     }

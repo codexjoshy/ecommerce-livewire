@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
-Route::get('/products', [FrontendController::class, 'products'])->name('frontend.product.index');
-Route::get('/{category_slug}/{product}', [FrontendController::class, 'product'])->name('frontend.product.show');
+
 
 
 Auth::routes();
@@ -28,12 +26,12 @@ Auth::routes();
 
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('category', CategoryController::class);
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
     // Route::get('category/{category}/product/{product}',[ CategoryController::class, 'show'])->name('admin.category.product.show')
     // users routes
     Route::get('user/create', [UserController::class, 'create'])->name('admin.user.create');
-    Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('user', [UserController::class, 'index'])->name('admin.user.index');
     Route::get('/role', [RoleController::class, 'index'])->name('admin.role.index');
     // Route::get('user/create', App\Http\Livewire\Admin\User\Create::class)->name('admin.user.create');
 
@@ -44,4 +42,13 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
 Route::prefix('/')->middleware(['auth', 'isCustomer'])->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+Route::controller(App\Http\Controllers\FrontendController::class)->group(function () {
+    Route::get('/',  'index')->name('frontend.index');
+    Route::get('/products', 'products')->name('frontend.product.index');
+    Route::get('/{category_slug}/{product}', 'product')->name('frontend.product.show');
+});
+Route::controller(App\Http\Controllers\WhishListController::class)->group(function () {
+    Route::get('/wishlists', 'index')->name('frontend.wishlist.index');
+    Route::get('/cart', 'cartView')->name('frontend.wishlist.cart');
 });

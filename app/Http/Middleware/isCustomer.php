@@ -23,7 +23,7 @@ class isCustomer
             return $next($request);
         }
         if ($user->authority == 'admin') {
-            return redirect()->route('admin.dashboard')->with('error', 'Admins Not authorized');
+            return redirect()->route('admin.dashboard');
         }
         return $next($request);
     }

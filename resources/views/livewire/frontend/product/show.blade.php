@@ -1,6 +1,5 @@
 <section id="smart-watches" class="product-store padding-large position-relative">
     @push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* Product View */
         .product-view .product-name {
@@ -64,6 +63,17 @@
     @endpush
     <div class="py-3 py-md-5 bg-light">
         <div class="container">
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissable">
+                {{ session('error') }}
+
+            </div>
+            @endif
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissable">
+                {{ session('success') }}
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-5 mt-3">
                     <div class="bg-white border">
@@ -92,9 +102,23 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <a href="" class="btn btn-primary">
-                                <i class="fa fa-shopping-cart"></i>Add To Cart</a>
-                            <a href="" class="btn btn-primary"> <i class="fa fa-heart"></i> Add To Wishlist </a>
+                            <button wire:click="$emit('addToCart',{{ $product->id }})" class="btn btn-primary">
+                                <i class="fa fa-shopping-cart"></i>Add To Cart
+                            </button>
+                            @if ($wishList)
+                            <span wire:loading.attr="disabled" wire:click="removeFromWishList({{ $product->id }})"
+                                class="btn btn-danger">
+                                <span wire:loading.remove>
+                                    <i class="fa fa-heart"></i> Remove from Wishlist
+                                </span>
+                                <strong wire:loading
+                                    wire:target="removeFromWishList({{ $product->id }})">Removing...</strong>
+                            </span>
+                            @else
+                            <span wire:click="addToWishList({{ $product->id }})" class="btn btn-primary"> <i
+                                    class="fa fa-heart"></i> Add To Wishlist
+                            </span>
+                            @endif
                         </div>
                         <div class="mt-3">
                             <h5 class="mb-0">Small Description</h5>

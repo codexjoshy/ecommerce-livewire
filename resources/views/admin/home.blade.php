@@ -15,6 +15,9 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div class="mt-5">
+                        <a href="{{ route('frontend.product.index') }}" class="btn btn-sm btn-primary">Go to Store</a>
+                    </div>
                 </div>
             </div>
         </div>

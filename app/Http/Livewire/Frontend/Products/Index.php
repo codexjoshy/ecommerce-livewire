@@ -3,12 +3,22 @@
 namespace App\Http\Livewire\Frontend\Products;
 
 use App\Models\Product;
+use App\Services\ProductService;
 use Livewire\Component;
 
 class Index extends Component
 {
 
     public $products, $categories, $selectedCategory = [], $priceInput = "";
+    protected $listeners = ["addToCart" => 'addToCart'];
+    public function addToCart($productId)
+    {
+        $added = ProductService::addProductToCart($productId, 1);
+        if ($added) {
+            $this->emit('cart-added');
+            $this->dispatchBrowserEvent('browser-alert', ["status" => "success", "message" => "✅Product added successfully to cart🛒"]);
+        }
+    }
 
     protected $queryString = [
         // 'selectedCategory' => ['keep' => true],

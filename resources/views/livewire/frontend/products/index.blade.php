@@ -1,16 +1,4 @@
 <div class='row top '>
-    @push('css')
-    <style>
-        .section {
-            min-height: 100vh;
-        }
-
-        .top {
-            padding-top: 10%;
-            padding-bottom: 20%;
-        }
-    </style>
-    @endpush
     <div class='col-md-3'>
 
         <div class="flex flex-column position-fixed">
@@ -58,7 +46,8 @@
             <div class="btn-right">
             </div>
         </div>
-        <div class="swiper product-swiper">
+        <x-product.list :products="$products" />
+        {{-- <div class="swiper product-swiper">
             <div class="swiper-wrappers d-flex justify-content-between flex-wrap" style="flex-wrap: wrap!important;">
                 @foreach ($products as $product)
                 <div class="swiper-slide " style="width:30%; margin-bottom:10%;">
@@ -84,7 +73,7 @@
                 </div>
                 @endforeach
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </div>

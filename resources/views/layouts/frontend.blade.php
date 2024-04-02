@@ -19,12 +19,19 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap"
       rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     @stack('css')
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
     @livewireStyles
     <!-- script
     ================================================== -->
     <script src="{{asset('assets/js/modernizr.js') }}"></script>
   </head>
+
+
 
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
     tabindex="0">
@@ -182,14 +189,19 @@
                   <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <span class="fa fa-user"></span>
-                    <svg class="user" style='width:20px; height:20px;'>
+                    {{-- <svg class="user" style='width:20px; height:20px;'>
                       <use xlink:href="#user"></use>
-                    </svg>
+                    </svg> --}}
                     <strong>{{ Auth::user()->name[0] }}</strong>
                   </a>
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    <a class="dropdown-item d-flex gap-3" href="{{ route('home') }}">
+                      <div class="dropdown-item-icon"><i class="fa fa-home"></i></div>
+                      Dashoard
+                    </a>
+                    <a class="dropdown-item d-flex gap-3" href="{{ route('logout') }}"
                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      <div class="dropdown-item-icon"><i class="fa fa-sign-out"></i></div>
                       {{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -208,11 +220,24 @@
                           </svg>
                         </a>
                       </li>
-                      <li>
-                        <a href="cart.html">
+                      <li class="search-item pe-3 position-relative " title="Carts">
+                        <a href="{{ route('frontend.wishlist.cart') }}" style="font-size: small">
                           <svg class="cart">
                             <use xlink:href="#cart"></use>
                           </svg>
+                          Cart(<span class="badge badge-info text-primary">
+                            <livewire:frontend.wishlist.cart-count />
+                          </span>)
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{{ route('frontend.wishlist.index') }}" class="search-item pe-3 position-relative "
+                          title="Whishlists" style="font-size: small">
+                          <span class="fa fa-1.5x fa-heart"></span>
+                          Wishlists(<span class="badge badge-info text-primary">
+                            <livewire:frontend.wishlist.count />
+                          </span>)
+
                         </a>
                       </li>
                     </ul>
@@ -371,6 +396,15 @@
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/plugins.js') }}"></script>
     @stack('scripts')
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+      window.addEventListener('browser-alert', function(event){
+        const detail = event.detail;
+        alertify.set('notifier','position', 'top-right');
+        alertify.notify(detail?.message, detail?.status, 2 );
+      })
+
+    </script>
     @livewireScripts
   </body>
 
